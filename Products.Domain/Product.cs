@@ -35,7 +35,9 @@ namespace Products.Domain
         [Display(Name ="Last purchase")]
         [DataType(DataType.Date)]
         public DateTime LastPurchase { get; set; }
-        
+
+        public string  Image { get; set; }
+
         [JsonIgnore]
         public virtual Category Category { get; set; }
     }

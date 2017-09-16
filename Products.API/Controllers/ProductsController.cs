@@ -13,6 +13,7 @@ using Products.Domain;
 
 namespace Products.API.Controllers
 {
+    [Authorize]
     public class ProductsController : ApiController
     {
         private DataContext db = new DataContext();

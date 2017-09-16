@@ -6,6 +6,8 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+
+    [Authorize]
     public class CategoriesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
