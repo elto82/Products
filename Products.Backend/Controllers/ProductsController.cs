@@ -62,7 +62,7 @@ namespace Products.Backend.Controllers
                 if (view.ImageFile != null)
                 {
                     pic = FileHelper.UploadPhoto(view.ImageFile, folder);
-                    pic = string.Format($"{folder}/{pic}" );
+                    pic = string.Format("{0}/{1}", folder, pic);
                 }
 
                 var product = ToProduct(view);
@@ -144,7 +144,7 @@ namespace Products.Backend.Controllers
                 if (view.ImageFile != null)
                 {
                     pic = FileHelper.UploadPhoto(view.ImageFile, folder);
-                    pic = string.Format($"{folder}/{pic}");
+                    pic = string.Format("{0}/{1}",folder,pic);
                 }
 
                 var product = ToProduct(view);
