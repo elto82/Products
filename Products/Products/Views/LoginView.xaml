@@ -86,7 +86,7 @@
                 </Button>
                 <Button
                     Command="{Binding RegisterNewUserCommand}"
-                    BackgroundColor="Purple"
+                    BackgroundColor="Green"
                     BorderRadius="23"
                     FontAttributes="Bold"
                     HeightRequest="46"
