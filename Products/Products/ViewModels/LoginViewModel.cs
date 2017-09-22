@@ -5,6 +5,8 @@
     using System.Windows.Input;
     using System;
     using Products.Services;
+    using Xamarin.Forms;
+    using Products.Views;
 
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -117,19 +119,43 @@
                 return;
             }
 
-            var response = await apiService.GetToken("http://productsapi82.azurewebsites.net", Email, Password);
+            var response = await apiService.GetToken("http://productsapi82.azurewebsites.net",
+                Email,
+                Password);
 
-            if (response == null || string.IsNullOrEmpty( response.AccessToken ))
+            if (response == null)
             {
 
                 IsRunning = false;
                 _isEnabled = true;
-                await dialogService.ShowMessage("Error", response.ErrorDescription);
+                await dialogService.ShowMessage(
+                    "Error", 
+                    "the service is not available, please try latter.");
                 Password = null;
                 return;
             }
 
-            await dialogService.ShowMessage("taran", "welcome");
+            if (string.IsNullOrEmpty(response.AccessToken))
+            {
+
+                IsRunning = false;
+                _isEnabled = true;
+                await dialogService.ShowMessage(
+                    "Error", 
+                    response.ErrorDescription);
+                Password = null;
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Categories = new CategoriesViewModel();
+            mainViewModel.Token = response;
+            await Application.Current.MainPage.Navigation.PushAsync(
+                new CategoriesView());
+
+            Email = null;
+            Password = null;
+
             IsRunning = false;
             _isEnabled = true;
         }

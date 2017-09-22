@@ -20,10 +20,10 @@
         [JsonProperty(PropertyName = ".issued")]
         public DateTime Issued { get; set; }
 
-        [JsonProperty(PropertyName = ".expires")]
+        [JsonProperty(PropertyName = "expires")]
         public DateTime Expires { get; set; }
 
-        [JsonProperty(PropertyName = ".error_description")]
+        [JsonProperty(PropertyName = "error_description")]
         public string ErrorDescription { get; set; }
     }
 }

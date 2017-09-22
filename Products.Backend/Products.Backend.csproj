@@ -213,7 +213,13 @@
     <Content Include="Content\Images\aguardiente750.jpg" />
     <Content Include="Content\Images\colgate25.jpg" />
     <Content Include="Content\Images\fabulos750.jpg" />
+    <Content Include="Content\Images\farmacias.jpg" />
+    <Content Include="Content\Images\fonso.jpg" />
+    <Content Include="Content\Images\fonso1.jpg" />
+    <Content Include="Content\Images\fonso2.jpg" />
     <Content Include="Content\Images\manzanas-700x462.jpg" />
+    <Content Include="Content\Images\partes.jpg" />
+    <Content Include="Content\Images\productos.jpg" />
     <Content Include="Content\Images\salchichas 250gr.jpg" />
     <Content Include="Content\Images\salchichon.jpg" />
     <Content Include="favicon.ico" />
