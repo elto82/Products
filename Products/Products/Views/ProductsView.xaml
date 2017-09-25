@@ -1,38 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Categories"
-             x:Class="Products.Views.CategoriesView">
+              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Products"
+             x:Class="Products.Views.ProductsView">
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding Categories}"
+        <StackLayout BindingContext="{Binding Products}"
                      Padding="5">
             <ListView
                 HasUnevenRows="True"
-                ItemsSource="{Binding CategoriesList}">
+                ItemsSource="{Binding Products}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
+                                <Image 
+                                    Grid.Column="0"
+                                    HorizontalOptions="Start"
+                                    Source="{Binding ImageFullPath}"
+                                    WidthRequest="100"
+                                    HeightRequest="100">
+                                   
+                                </Image>
                                 <Label 
                                     HorizontalOptions="FillAndExpand"
-                                    Grid.Column="0"
+                                    Grid.Column="1"
                                     VerticalOptions="Center"
                                     Text="{Binding Description}"
-                                    FontSize="Large"/>
-                                <Image 
-                                    HorizontalOptions="End"
-                                    Source="ic_launcher.png">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectCategoryCommand}">                                            
-                                        </TapGestureRecognizer>
-                                    </Image.GestureRecognizers>
-                                </Image>                              
-                              
+                                    FontSize="Medium"/>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
@@ -40,5 +40,6 @@
 
             </ListView>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

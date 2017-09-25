@@ -4,6 +4,7 @@
     public class MainViewModel
     {
         #region Properties
+        public ProductsViewModel Products { get; set; }
         public TokenResponse Token { get; set; }
         public LoginViewModel Login { get; set; }
         public CategoriesViewModel Categories { get; set; }

@@ -87,6 +87,8 @@
             dialogService = new DialogService();
             IsEnabled = true;
             IsToggled = true;
+            Email= "antonio@gmail.com";
+            Password = "123456";
         }
         #endregion
 

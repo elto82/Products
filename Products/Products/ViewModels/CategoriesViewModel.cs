@@ -1,31 +1,89 @@
 ﻿using Products.Models;
+using Products.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Products.ViewModels
 {
-    public class CategoriesViewModel
+    public class CategoriesViewModel: INotifyPropertyChanged
     {
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Atributes
+        ObservableCollection<Category> _categories;
+        #endregion
+
+        #region Services
+        DialogService dialogService;
+        ApiService apiService;
+
+        #endregion
         #region Properties
 
-        public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<Category> CategoriesList
+        {
+            get
+            {
+                return _categories;
+            }
+            set
+            {
+                if (_categories != value)
+                {
+                    _categories = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoriesList)));
+                }
+            }
+        }
         #endregion
         #region Contructrs
         public CategoriesViewModel()
         {
+            dialogService = new DialogService();
+            apiService = new ApiService();
             LoadCategories();
         }
 
         #endregion
 
         #region Methods
-        private void LoadCategories()
+        async void LoadCategories()
         {
-            throw new NotImplementedException();
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await dialogService.ShowMessage(
+                    "Error", 
+                    connection.Message);
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            var response = await apiService.GetList<Category>(
+                "http://productsapi82.azurewebsites.net",
+                "/api",
+                "/Categories"
+                , mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken);
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage(
+                    "Error", 
+                    response.Message);
+                return;
+            }
+
+            var categories =(List<Category>)response.Result;
+            CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
         }
         #endregion
 
