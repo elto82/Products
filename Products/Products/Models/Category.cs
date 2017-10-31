@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Products.Services;
 using Products.ViewModels;
 using Products.Views;
 using System;
@@ -13,6 +14,17 @@ namespace Products.Models
 {
     public class Category
     {
+        #region Services
+        NavigationService navigationService;
+        #endregion
+
+        #region Constructors
+        public Category()
+        {
+            navigationService = new NavigationService();
+        }
+        #endregion
+
         #region Properties
         public int CategoryId { get; set; }
         public string Description { get; set; }
@@ -27,8 +39,8 @@ namespace Products.Models
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Products = new ProductsViewModel(Products);
-            await Application.Current.MainPage.Navigation.PushAsync(
-               new ProductsView());
+            await navigationService.Navigate("ProductsView");
+
         }
         #endregion
     }

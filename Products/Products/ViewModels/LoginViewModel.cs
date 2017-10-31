@@ -15,6 +15,7 @@
         #endregion
 
         #region Services
+        NavigationService navigationService;
         DialogService dialogService;
         ApiService apiService;
         #endregion
@@ -83,6 +84,7 @@
         #region Constructrs
         public LoginViewModel()
         {
+            navigationService = new NavigationService();
             apiService = new ApiService();
             dialogService = new DialogService();
             IsEnabled = true;
@@ -110,13 +112,13 @@
             }
 
             IsRunning = true;
-            _isEnabled = false;
+            IsEnabled = false;
 
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
                 IsRunning = false;
-                _isEnabled = true;
+                IsEnabled = true;
                 await dialogService.ShowMessage("Error", connection.Message);
                 return;
             }
@@ -129,7 +131,7 @@
             {
 
                 IsRunning = false;
-                _isEnabled = true;
+                IsEnabled = true;
                 await dialogService.ShowMessage(
                     "Error", 
                     "the service is not available, please try latter.");
@@ -141,7 +143,7 @@
             {
 
                 IsRunning = false;
-                _isEnabled = true;
+                IsEnabled = true;
                 await dialogService.ShowMessage(
                     "Error", 
                     response.ErrorDescription);
@@ -152,14 +154,13 @@
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Categories = new CategoriesViewModel();
             mainViewModel.Token = response;
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new CategoriesView());
+            await navigationService.Navigate("CategoriesView");
 
             Email = null;
             Password = null;
 
             IsRunning = false;
-            _isEnabled = true;
+            IsEnabled = true;
         }
         #endregion
 

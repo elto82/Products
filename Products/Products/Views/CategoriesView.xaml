@@ -4,6 +4,12 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Categories"
              x:Class="Products.Views.CategoriesView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding NewCategoryCommand}"
+            Icon="add.png"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Categories}"
                      Padding="5">

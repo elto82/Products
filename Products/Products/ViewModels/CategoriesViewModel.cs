@@ -18,6 +18,7 @@ namespace Products.ViewModels
         #endregion
 
         #region Atributes
+        List<Category> categories;
         ObservableCollection<Category> _categories;
         #endregion
 
@@ -26,6 +27,7 @@ namespace Products.ViewModels
         ApiService apiService;
 
         #endregion
+
         #region Properties
 
         public ObservableCollection<Category> CategoriesList
@@ -44,9 +46,11 @@ namespace Products.ViewModels
             }
         }
         #endregion
+
         #region Contructrs
         public CategoriesViewModel()
         {
+            instance = this;
             dialogService = new DialogService();
             apiService = new ApiService();
             LoadCategories();
@@ -54,7 +58,27 @@ namespace Products.ViewModels
 
         #endregion
 
+        #region Singleton
+        static CategoriesViewModel instance;
+        public static CategoriesViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new CategoriesViewModel();
+            }
+
+            return instance;
+        }
+        #endregion
+
         #region Methods
+
+        public void AddCategory(Category category)
+        {
+            categories.Add(category);
+            CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
+
+        }
         async void LoadCategories()
         {
             var connection = await apiService.CheckConnection();
@@ -82,7 +106,7 @@ namespace Products.ViewModels
                 return;
             }
 
-            var categories =(List<Category>)response.Result;
+            categories =(List<Category>)response.Result;
             CategoriesList = new ObservableCollection<Category>(categories.OrderBy(c => c.Description));
         }
         #endregion
