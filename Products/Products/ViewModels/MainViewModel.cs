@@ -13,6 +13,7 @@
         #endregion
 
         #region Properties
+        public EditCategoryViewModel EditCategory { get; set; }
         public NewCategoryViewModel NewCategory { get; set; }
         public ProductsViewModel Products { get; set; }
         public TokenResponse Token { get; set; }
